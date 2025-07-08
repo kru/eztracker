@@ -1,5 +1,6 @@
 local M = {}
 
+
 local vim = vim
 local fn = vim.fn
 local api = vim.api
@@ -519,6 +520,13 @@ send_heartbeats = function()
     extra_heartbeats_json = get_heartbeats_json() -- This also clears the buffer
   end
 
+  if heartbeat.duration == 0 then
+    if state.debug_on then
+      vim.notify("Duration is 0, not sending heartbeat", vim.log.levels.DEBUG)
+    end
+    return
+  end
+
   local cmd_args = { state.eztracker_cli, '--entity', heartbeat.entity }
   table.insert(cmd_args, '--time')
   table.insert(cmd_args, heartbeat.time)
@@ -531,7 +539,13 @@ send_heartbeats = function()
   table.insert(cmd_args, '--plugin')
   table.insert(cmd_args, plugin_id)
 
-  if heartbeat.is_write then table.insert(cmd_args, '--write') end
+  if heartbeat.duration ~= 0 then
+    table.insert(cmd_args, '--duration')
+    table.insert(cmd_args, tostring(heartbeat.duration))
+  end
+  if heartbeat.is_write then
+    table.insert(cmd_args, '--write')
+  end
   if heartbeat.language then
     if string.lower(heartbeat.language) == 'forth' then
       table.insert(cmd_args, '--language')
@@ -977,5 +991,4 @@ function M.setup(user_config)
   vim.defer_fn(function() init_and_handle_activity(false) end, 100)
 end
 
--- test
 return M

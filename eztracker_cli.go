@@ -27,7 +27,7 @@ type Config struct {
 }
 
 type Heartbeat struct {
-	Entity            string  `json:"file_path"`
+	Entity            string  `json:"entity"`
 	Timestamp         float64 `json:"timestamp"`
 	Language          string  `json:"language,omitempty"`
 	AlternateLanguage string  `json:"alternate_language,omitempty"`
@@ -182,6 +182,11 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Error: Invalid extra heartbeats JSON: %v\n", err)
 			os.Exit(1)
 		}
+
+		if config.Debug {
+			fmt.Printf("heartbeat payload: %+v", extra)
+		}
+
 		heartbeats = append(heartbeats, extra...)
 	}
 
@@ -199,11 +204,9 @@ func main() {
 }
 
 func sendHeartbeat(config Config, hb Heartbeat) error {
-	if config.Debug {
-		fmt.Printf("heartbeat payload: %+v", hb)
-	}
 	if hb.Duration == 0 {
-		return fmt.Errorf("duration is 0, not sending it: %+v", hb)
+		fmt.Printf("duration is 0, not sending it: %+v", hb)
+		return nil
 	}
 	// Extract project name from file path (simplified, assumes last dir is project)
 	project := "unknown"

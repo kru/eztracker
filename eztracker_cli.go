@@ -92,7 +92,7 @@ func loadConfig() (Config, error) {
 				key := strings.TrimSpace(parts[0])
 				value := strings.TrimSpace(parts[1])
 				switch key {
-				case "api_key", "apikey": // Support legacy key name
+				case "api_key":
 					config.APIKey = value
 				case "server_url":
 					config.ServerURL = value

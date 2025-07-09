@@ -3,7 +3,9 @@
 
 ### Overview
 
-Lightweight WakaTime to track Neovim/Sublime coding activity (projects, languages, time). 
+(PERSONAL USE ONLY)
+
+This is self hosted Lightweight WakaTime like to track Neovim/Sublime coding activity (projects, languages, time). 
 Weekly email summaries.
 
 ### Components
@@ -33,7 +35,7 @@ API_KEY=secret_key
 
 ### Server Design
 
-Hosting: DigitalOcean, Go REST API.
+Hosting: self hosted, Go REST API.
 Functionality:
 Receives heartbeats (/heartbeats).
 Stores in SQLite.
@@ -114,10 +116,11 @@ Add cron job for email summaries.
 
 ### Current Progress
 
-- [x] There are data in Wakatime since 2017 exported
+- [x] There are data coding activity from Wakatime since 2017 need to be migrated
 - [x] Review the Data and pick what are needed
 - [x] Create Postgres Schemas based on data and additional tables if required
 - [ ] Create a simple program to insert data from JSON to SQLite table
 - [ ] Research how Wakatime trigger their CLI in non abusive way, because when we tried to trigger curl via lua, it causes annoying behaviour on the editor
 - [ ] Based on the research result, decide what is the threshold of duration of creating a heartbeat for CLI
+- [ ] Move eztracker_cli.go to somewhere else or look for another way
 

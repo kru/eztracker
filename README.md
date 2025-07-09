@@ -1,6 +1,5 @@
 ## EZTRACKER Plan
 
-
 ### Overview
 
 (PERSONAL USE ONLY)
@@ -27,7 +26,9 @@ Functionality:
 - Sends JSON heartbeats via HTTP POST (batched ~5m) via CLI program.
 
 
-Config (.env):API_ENDPOINT=http://server:8080/heartbeats
+### Config (.env):
+
+API_ENDPOINT=http://server:8080/heartbeats
 HEARTBEAT_INTERVAL=5m
 USER_ID=unique_user_id
 API_KEY=secret_key
@@ -41,18 +42,17 @@ Receives heartbeats (/heartbeats).
 Stores in SQLite.
 Emails weekly summaries (projects, languages, time).
 
+#### Config (.env):
 
-Implementation:
-Go standard HTTP server
-SQLite database.
-Cron job for emails.
-
-
-Config (.env):DATABASE_PATH=/path/to/db.sqlite
+DATABASE_PATH=/path/to/db.sqlite
 EMAIL_PROVIDER=smtp://user:pass@smtp.sendgrid.net:587
 SERVER_PORT=8080
 SUMMARY_SCHEDULE=0 0 * * 0
 
+### Implementation:
+Go standard HTTP server
+SQLite database.
+Cron job for emails.
 
 
 ### Database Schema

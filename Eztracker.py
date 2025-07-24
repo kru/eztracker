@@ -11,7 +11,8 @@ import shutil
 EXIT_CODE_CONFIG_PARSE_ERROR = 103
 EXIT_CODE_API_KEY_ERROR = 104
 VERSION = "0.0.1"
-CONFIG_FILE = os.path.expanduser("~/.eztracker.cfg")
+HOME_FOLDER = os.path.realpath(os.path.expanduser("~"))
+CONFIG_FILE = os.join.path(HOME_FOLDER, ".eztracker.cfg") 
 PLUGIN_NAME = "eztracker-sublime"
 
 class EztrackerConfig:
